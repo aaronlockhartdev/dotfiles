@@ -63,6 +63,6 @@ command -v pyenv >/dev/null 2>&1 || \
 if [ -d "$HOME/.local/share/chezmoi/.git" ]; then
   echo "⚠️  chezmoi already initialized, reinitialize with 'chezmoi init https://github.com/aaronlockhartdev/dotfiles.git"
 else
-  echo "🚀  Initializing dotfiles..." && $ sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
+  echo "🚀  Initializing dotfiles..." && sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
 fi
 
