@@ -60,9 +60,5 @@ command -v pyenv >/dev/null 2>&1 || \
   (echo "➡️  Installing pyenv..." && (curl https://pyenv.run | bash))
 
 # Install dotfiles with chezmoi
-if [ -d "$HOME/.local/share/chezmoi/.git" ]; then
-  echo "🔃  chezmoi already installed, updating dotfiles..." && ./chezmoi update
-else
-  echo "🚀  Initializing dotfiles..." && sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
-fi
+echo "🚀  Initializing dotfiles..." && sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
 
