@@ -49,6 +49,7 @@ install zsh
 install git
 install curl
 install wget
+install neofetch
 
 # Install other CLI utilities
 
@@ -60,5 +61,13 @@ command -v pyenv >/dev/null 2>&1 || \
   (echo "➡️  Installing pyenv..." && (curl https://pyenv.run | bash))
 
 # Install dotfiles with chezmoi
-echo "🚀  Initializing dotfiles..." && sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
-
+echo "🚀  Initializing dotfiles..." && (
+  case "$OSTYPE" in
+    darwin*) # MacOS
+      brew install chezmoi
+      chezmoi update -v
+    ;;
+    linux*) # Linux
+      sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
+    ;;
+  esac)
