@@ -56,7 +56,17 @@ install neofetch
 # Install oh-my-zsh
 echo "➡️  Installing oh-my-zsh..." && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Install pyenv
+# Install pyenv and dependencies
+case "$OSTYPE" in
+  darwin*) # MacOS
+    brew install openssl readline sqlite3 xz zlib tcl-tk
+  ;;  
+  linux*) # Linux
+    sudo apt-get install make build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev  
+  ;;
+esac
 command -v pyenv >/dev/null 2>&1 || \
   (echo "➡️  Installing pyenv..." && (curl https://pyenv.run | bash))
 
