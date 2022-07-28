@@ -52,10 +52,6 @@ install wget
 
 # Install other CLI utilities
 
-# Install chezmoi
-command -v chezmoi >/dev/null 2>&1 || \
-  (echo "➡️  Installing chezmoi..." && sh -c "$(curl -fsLS https://chezmoi.io/get)")
-
 # Install oh-my-zsh
 echo "➡️  Installing oh-my-zsh..." && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -67,6 +63,6 @@ command -v pyenv >/dev/null 2>&1 || \
 if [ -d "$HOME/.local/share/chezmoi/.git" ]; then
   echo "⚠️  chezmoi already initialized, reinitialize with 'chezmoi init https://github.com/aaronlockhartdev/dotfiles.git"
 else
-  echo "🚀  Initializing dotfiles..." && chezmoi init https://github.com/aaronlockhartdev/dotfiles.git
+  echo "🚀  Initializing dotfiles..." && $ sh -c "$(curl -fsLS https://chezmoi.io/get)" -- init --apply aaronlockhartdev
 fi
 
