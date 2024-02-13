@@ -197,6 +197,9 @@ vim.diagnostic.config({
   },
 })
 
+-- Configure VimTex
+vim.g.vimtex_view_method = "skim"
+
 -----Mappings-----
 -- Set mapleader
 vim.g.mapleader = ","
