@@ -10,7 +10,9 @@ brew install \
     nvim \
     curl
 
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+if [ ! -d /Applications/kitty.app ]; then
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+fi
 
 {{ else if eq .osid "linux-ubuntu" }}
 
@@ -26,7 +28,7 @@ fi
 
 sudo snap install --beta nvim --classic
 
-if [ $DESKTOP_SESSION ]; then
+if [ $DESKTOP_SESSION ] && [ ! -d $HOME/.local/kitty.app ]; then
 
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
