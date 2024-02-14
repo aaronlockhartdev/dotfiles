@@ -1,0 +1,22 @@
+#!/bin/bash
+
+{{ if eq .osid "darwin" }}
+
+brew update
+brew install \
+    zsh \
+    pipx \
+    pyenv
+
+{{ else if eq .osid "linux-ubuntu" }}
+
+sudo apt update
+sudo apt install -y \
+    zsh \
+    pipx \
+    pyenv
+
+sudo snap install --beta nvim --classic
+
+{{ end }}
+
