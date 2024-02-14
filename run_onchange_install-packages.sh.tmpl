@@ -14,8 +14,11 @@ brew install \
 sudo apt update
 sudo apt install -y \
     zsh \
-    pipx \
-    pyenv
+    pipx
+
+if [ -d $HOME/.pyenv ]; then
+    curl https://pyenv.run | bash
+fi
 
 sudo snap install --beta nvim --classic
 
