@@ -137,4 +137,4 @@ eval "$(zoxide init zsh --cmd cd)"
 # Customize zsh-autosuggestions
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#495865,bold"
 
-bindkey '^I^I' autosuggest-accept
+bindkey '\\^I' autosuggest-accept

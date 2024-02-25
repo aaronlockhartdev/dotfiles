@@ -1,0 +1,7 @@
+[user]
+	name = Aaron Lockhart
+	email = aaronlockhartdev@gmail.com
+[core]
+	editor = nvim
+[commit]
+	gpgsign = true

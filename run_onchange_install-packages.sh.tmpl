@@ -9,7 +9,8 @@ brew install \
     pyenv \
     nvim \
     curl \
-    zoxide
+    zoxide \
+    bitwarden-cli
 
 if [ ! -d /Applications/kitty.app ]; then
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
@@ -29,6 +30,7 @@ if [ ! -d $HOME/.pyenv ]; then
 fi
 
 sudo snap install --beta nvim --classic
+sudo snap install bw
 
 if [ $DESKTOP_SESSION ] && [ ! -d $HOME/.local/kitty.app ]; then
 
