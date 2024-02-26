@@ -7,3 +7,5 @@
 	gpgsign = true
 [url "git+ssh://git@github.com/"]
 	insteadOf = https://github.com/
+[color]
+	ui = auto
