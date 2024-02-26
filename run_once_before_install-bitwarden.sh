@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Rust and rbw
-if [ ! command -v cargo ]; then
+if ! command -v "cargo" &> /dev/null; then
     curl https://sh.rustup.rs -sSf | sh
     source "$HOME/.cargo/env"
 fi
