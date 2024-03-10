@@ -29,6 +29,7 @@ set.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx"
 -- Code folding
 set.foldmethod = "expr"
 set.foldexpr = "nvim_treesitter#foldexpr()"
+set.foldenable = false
 
 -- Miscallaneous
 set.writebackup = false
@@ -36,20 +37,21 @@ set.scrolloff = 10
 set.wrap = true
 set.history = 1000
 set.conceallevel = 2
+set.signcolumn = "yes"
 
 -----Plugins-----
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -68,17 +70,32 @@ require("lazy").setup({
         build = "make install_jsregexp",
         dependencies = { "rafamadriz/friendly-snippets" } 
     },
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    { 
+        "nvim-treesitter/nvim-treesitter", 
+        build = ":TSUpdate",
+        config = function () 
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", "python" },
+                sync_install = false,
+                auto_install = true,
+                highlight = { enable = true },
+                indent = { enable = true },  
+            })
+        end
+    },
     { "lukas-reineke/indent-blankline.nvim" },
     { "numToStr/Comment.nvim", opts = {}, lazy = false },
-    { "lualine.nvim" },
+    { 
+        "nvim-lualine/lualine.nvim",
+        dependencies = { 'nvim-tree/nvim-web-devicons' } 
+    },
     { "nvim-tree/nvim-tree.lua" },
     { "lervag/vimtex", lazy = false, ft = 'tex'},
     { "catppuccin/nvim" }
 })
 
 -- Set colorscheme
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme catppuccin-macchiato")
 
 -- Lazy load friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -91,6 +108,29 @@ lspconfig.jedi_language_server.setup{
     capabilities = lsp_capabilities
 }
 
+lspconfig.tsserver.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.svelte.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.dockerls.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.tailwindcss.setup{
+    capabilities = lsp_capabilities
+}
+
+vim.filetype.add({ 
+    extension = {
+        pcss = 'postcss'
+    }
+})
+vim.treesitter.language.register('scss', { 'postcss' })
+
 -- Configure nvim-cmp and LuaSnip
 set.completeopt = {'menu', 'menuone', 'noselect'}
 
@@ -101,9 +141,9 @@ local select_opts = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
     snippet = {
-	    expand = function(args)
-		    luasnip.lsp_expand(args.body)
-	    end
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end
     },
     sources = {
         {name = 'path'},
@@ -153,7 +193,7 @@ cmp.setup({
                 fallback()
             end
         end, {'i', 's'}),
-        
+
         ['<Tab>'] = cmp.mapping(function(fallback)
             local col = vim.fn.col('.') - 1
 
@@ -176,11 +216,11 @@ cmp.setup({
 })
 
 local sign = function(opts)
-  vim.fn.sign_define(opts.name, {
-    texthl = opts.name,
-    text = opts.text,
-    numhl = ''
-  })
+    vim.fn.sign_define(opts.name, {
+        texthl = opts.name,
+        text = opts.text,
+        numhl = ''
+    })
 end
 
 sign({name = 'DiagnosticSignError', text = '✘'})
@@ -189,13 +229,19 @@ sign({name = 'DiagnosticSignHint', text = '⚑'})
 sign({name = 'DiagnosticSignInfo', text = '»'})
 
 vim.diagnostic.config({
-  virtual_text = false,
-  severity_sort = true,
-  float = {
-    border = 'rounded',
-    source = 'always',
-  },
+    severity_sort = true,
+    virtual_text = {
+        source = 'if-many',
+        prefix = '󰧟',
+    },
+    float = {
+        border = 'rounded',
+        source = 'always',
+    },
 })
+
+-- Configure LuaLine
+require('lualine').setup()
 
 -- Configure VimTex
 vim.g.vimtex_view_method = "skim"
@@ -219,6 +265,12 @@ map("n", "<space>", ":")
 
 -- Open file tree with <leader>b
 map("", "<leader>b", ":NvimTreeFocus<CR>")
+
+-- Diagnostic mappings
+map('n', '<space>e', vim.diagnostic.open_float)
+map('n', '[d', vim.diagnostic.goto_prev)
+map('n', ']d', vim.diagnostic.goto_next)
+map('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Navigate between panes
 map("n", "<C-k>", ":wincmd k<CR>")
