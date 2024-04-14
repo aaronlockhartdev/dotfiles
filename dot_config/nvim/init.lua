@@ -91,7 +91,12 @@ require("lazy").setup({
     },
     { "nvim-tree/nvim-tree.lua" },
     { "lervag/vimtex", lazy = false, ft = 'tex'},
-    { "catppuccin/nvim" }
+    { "catppuccin/nvim" },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^4',
+        ft = { 'rust' },
+    }
 })
 
 -- Set colorscheme
@@ -99,6 +104,9 @@ vim.cmd("colorscheme catppuccin-macchiato")
 
 -- Lazy load friendly-snippets
 require("luasnip.loaders.from_vscode").lazy_load()
+
+-- Configure numToStr/Comment
+require('Comment').setup()
 
 -- Configure LSPs
 local lspconfig = require('lspconfig')
