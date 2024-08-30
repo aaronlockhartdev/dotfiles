@@ -91,12 +91,7 @@ require("lazy").setup({
     },
     { "nvim-tree/nvim-tree.lua" },
     { "lervag/vimtex", lazy = false, ft = 'tex'},
-    { "catppuccin/nvim" },
-    {
-        'mrcjkb/rustaceanvim',
-        version = '^4',
-        ft = { 'rust' },
-    }
+    { "catppuccin/nvim" }
 })
 
 -- Set colorscheme
@@ -129,6 +124,10 @@ lspconfig.dockerls.setup{
 }
 
 lspconfig.tailwindcss.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.rust_analyzer.setup{
     capabilities = lsp_capabilities
 }
 
