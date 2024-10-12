@@ -75,7 +75,7 @@ require("lazy").setup({
         build = ":TSUpdate",
         config = function () 
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", "python" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", "python", "asm" },
                 sync_install = false,
                 auto_install = true,
                 highlight = { enable = true },
@@ -128,6 +128,10 @@ lspconfig.tailwindcss.setup{
 }
 
 lspconfig.rust_analyzer.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.asm_lsp.setup{
     capabilities = lsp_capabilities
 }
 
@@ -252,6 +256,7 @@ require('lualine').setup()
 
 -- Configure VimTex
 vim.g.vimtex_view_method = "skim"
+vim.g.vimtex_syntax_enabled = 0
 
 -----Mappings-----
 -- Set mapleader
