@@ -38,6 +38,7 @@ set.wrap = true
 set.history = 1000
 set.conceallevel = 2
 set.signcolumn = "yes"
+set.modeline = false
 
 -----Plugins-----
 
@@ -91,7 +92,33 @@ require("lazy").setup({
     },
     { "nvim-tree/nvim-tree.lua" },
     { "lervag/vimtex", lazy = false, ft = 'tex'},
-    { "catppuccin/nvim" }
+    { "catppuccin/nvim" },
+    {
+        "amitds1997/remote-nvim.nvim",
+        version = "0.3.11", -- Pin to GitHub releases
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- For standard functions
+            "MunifTanjim/nui.nvim", -- To build the plugin UI
+            "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+        },
+        config = true,
+    },
+    {
+        'dense-analysis/ale',
+        config = function()
+            -- Configuration goes here.
+            local g = vim.g
+
+            g.ale_ruby_rubocop_auto_correct_all = 1
+
+            g.ale_linters = {
+                ruby = {'rubocop', 'ruby'},
+                lua = {'lua_language_server'}
+            }
+        end
+    },
+    { 'jez/vim-better-sml' }
+
 })
 
 -- Set colorscheme
@@ -132,6 +159,14 @@ lspconfig.rust_analyzer.setup{
 }
 
 lspconfig.asm_lsp.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.dafny.setup{
+    capabilities = lsp_capabilities
+}
+
+lspconfig.clangd.setup{
     capabilities = lsp_capabilities
 }
 

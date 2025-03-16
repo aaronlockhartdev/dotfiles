@@ -96,7 +96,7 @@ bashcompinit
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='nvim'
+export EDITOR="nvim"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -130,7 +130,7 @@ zle -N Resume
 bindkey "^Z" Resume
 
 # Disable auto-updating (handled by chezmoi)
-export DISABLE_AUTO_UPDATE=true
+export DISABLE_AUTO_UPDATE="true"
 
 # Enable Zoxide
 eval "$(zoxide init zsh --cmd cd)"
@@ -139,3 +139,7 @@ eval "$(zoxide init zsh --cmd cd)"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#495865,bold"
 
 bindkey '\\^I' autosuggest-accept
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

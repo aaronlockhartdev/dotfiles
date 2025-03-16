@@ -4,22 +4,22 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
-    exclude = [".p10k.zsh", ".oh-my-zsh/cache/*"]
+    exclude = [".p10k.zsh", ".oh-my-zsh/cache/*", ".oh-my-zsh/custom/*"]
 [".oh-my-zsh/custom/themes/powerlevel10k"]
     type = "archive"
     url = "https://github.com/romkatv/powerlevel10k/archive/master.tar.gz"
     exact = true
-    refreshPeriod = "168h"
     stripComponents = 1
+    refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
     exact = true
-    refreshPeriod = "168h"
     stripComponents = 1
+    refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
     exact = true
-    refreshPeriod = "168h"
     stripComponents = 1
+    refreshPeriod = "168h"
